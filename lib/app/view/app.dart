@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../sign_up/view/sign_up_page.dart';
 import '../app.dart';
 
 class App extends StatelessWidget {
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Guitar Routine',
       theme: AppTheme.theme,
-      home: Container(),
+      home: const SignUpPage(),
     );
   }
 }
