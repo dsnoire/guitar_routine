@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../app/widgets/authentication_header.dart';
 
 class SignUpForm extends StatelessWidget {
