@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:guitar_routine/app/router/app_router.dart';
 
-import '../../sign_in/view/sign_in_page.dart';
 import '../theme/app_theme.dart';
 
 class App extends StatelessWidget {
@@ -8,10 +8,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Guitar Routine',
       theme: AppTheme.theme,
-      home: const SignInPage(),
+      routerConfig: AppRouter.router,
     );
   }
 }

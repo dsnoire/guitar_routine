@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../app/widgets/authentication_header.dart';
 
@@ -64,7 +65,7 @@ class _NavigateToSignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () => context.go('/sign-up'),
       child: RichText(
         text: const TextSpan(
           text: 'Don\'t have an account yet? ',
