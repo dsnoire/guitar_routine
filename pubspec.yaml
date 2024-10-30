@@ -41,6 +41,8 @@ dependencies:
   formz: ^0.7.0
   go_router: ^14.3.0
   flutter_svg: ^2.0.10+1
+  authentication_repository:
+    path: packages/authentication_repository
 
 dev_dependencies:
   flutter_test:

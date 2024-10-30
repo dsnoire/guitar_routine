@@ -87,7 +87,7 @@ class AuthenticationRepository {
   Stream<UserModel> get user {
     return _firebaseAuth.authStateChanges().map(
       (firebaseUser) {
-        final user = firebaseUser != null ? _toUser(firebaseUser) : UserModel.empty();
+        final user = firebaseUser != null ? _toUser(firebaseUser) : UserModel.empty;
         _cacheClient.write(key: userCacheKey, value: user);
         return user;
       },
@@ -95,7 +95,7 @@ class AuthenticationRepository {
   }
 
   UserModel get currentUser {
-    return _cacheClient.read(key: userCacheKey) ?? UserModel.empty();
+    return _cacheClient.read(key: userCacheKey) ?? UserModel.empty;
   }
 
   Future<void> signUp({

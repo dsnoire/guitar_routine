@@ -13,7 +13,7 @@ class UserModel extends Equatable {
   final String? name;
   final String? photo;
 
-  factory UserModel.empty() => const UserModel(id: '');
+  static const empty = UserModel(id: '');
 
   @override
   List<Object?> get props => [id, email, name, photo];
