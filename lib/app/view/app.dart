@@ -19,10 +19,8 @@ class App extends StatelessWidget {
     return RepositoryProvider.value(
       value: _authenticationRepository,
       child: BlocProvider(
-        create: (context) => AppBloc(authenticationRepository: _authenticationRepository)
-          ..add(
-            AppUserSubscriptionRequested(),
-          ),
+        lazy: false,
+        create: (context) => AppBloc(authenticationRepository: _authenticationRepository)..add(AppUserSubscriptionRequested()),
         child: const AppView(),
       ),
     );
@@ -37,7 +35,7 @@ class AppView extends StatelessWidget {
     return MaterialApp.router(
       title: 'Guitar Routine',
       theme: AppTheme.theme,
-      routerConfig: AppRouter.router,
+      routerConfig: AppRouter(context.read<AppBloc>()).router,
     );
   }
 }
