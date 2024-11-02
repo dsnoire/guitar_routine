@@ -8,21 +8,32 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const AuthenticationHeader(title: 'Sign Up'),
-        const Spacer(),
-        _NameTextInput(),
-        const SizedBox(height: 24),
-        _EmailTextInput(),
-        const SizedBox(height: 24),
-        _PasswordTextInput(),
-        const SizedBox(height: 24),
-        _SignUpButton(),
-        const SizedBox(height: 24),
-        _NavigateToSignInButton(),
-        const SizedBox(height: 24),
-      ],
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: MediaQuery.of(context).size.width,
+          minHeight: MediaQuery.of(context).size.height,
+        ),
+        child: IntrinsicHeight(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const AuthenticationHeader(title: 'Sign Up'),
+              const Spacer(),
+              _NameTextInput(),
+              const SizedBox(height: 24),
+              _EmailTextInput(),
+              const SizedBox(height: 24),
+              _PasswordTextInput(),
+              const SizedBox(height: 24),
+              _SignUpButton(),
+              const SizedBox(height: 24),
+              _NavigateToSignInButton(),
+              const SizedBox(height: 64),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

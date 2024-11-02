@@ -23,19 +23,30 @@ class SignInForm extends StatelessWidget {
             );
         }
       },
-      child: Column(
-        children: [
-          const AuthenticationHeader(title: 'Sign In'),
-          const Spacer(),
-          _EmailTextInput(),
-          const SizedBox(height: 24),
-          _PasswordTextInput(),
-          const SizedBox(height: 24),
-          _SignInButton(),
-          const SizedBox(height: 24),
-          _NavigateToSignUpButton(),
-          const SizedBox(height: 24),
-        ],
+      child: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: IntrinsicHeight(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const AuthenticationHeader(title: 'Sign In'),
+                const Spacer(),
+                _EmailTextInput(),
+                const SizedBox(height: 24),
+                _PasswordTextInput(),
+                const SizedBox(height: 24),
+                _SignInButton(),
+                const SizedBox(height: 24),
+                _NavigateToSignUpButton(),
+                const SizedBox(height: 64),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

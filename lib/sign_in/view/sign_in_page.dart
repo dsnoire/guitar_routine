@@ -11,11 +11,13 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: BlocProvider(
-          create: (context) => SignInCubit(context.read<AuthenticationRepository>()),
-          child: const SignInForm(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: BlocProvider(
+            create: (context) => SignInCubit(context.read<AuthenticationRepository>()),
+            child: const SignInForm(),
+          ),
         ),
       ),
     );
