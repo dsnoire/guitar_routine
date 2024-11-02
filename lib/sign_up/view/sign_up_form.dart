@@ -11,8 +11,7 @@ class SignUpForm extends StatelessWidget {
     return SingleChildScrollView(
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          minWidth: MediaQuery.of(context).size.width,
-          minHeight: MediaQuery.of(context).size.height,
+          minHeight: MediaQuery.of(context).size.height - 70,
         ),
         child: IntrinsicHeight(
           child: Column(
@@ -29,7 +28,6 @@ class SignUpForm extends StatelessWidget {
               _SignUpButton(),
               const SizedBox(height: 24),
               _NavigateToSignInButton(),
-              const SizedBox(height: 64),
             ],
           ),
         ),
