@@ -12,9 +12,5 @@ void main() async {
   Bloc.observer = const AppBlocObserver();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(
-    App(
-      authenticationRepository: AuthenticationRepository(),
-    ),
-  );
+  runApp(App(authenticationRepository: AuthenticationRepository()));
 }

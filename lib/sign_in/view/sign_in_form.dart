@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/widgets/authentication_header.dart';
+import '../cubit/sign_in_cubit.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const AuthenticationHeader(title: 'Sign In'),
-        const Spacer(),
-        _EmailTextInput(),
-        const SizedBox(height: 24),
-        _PasswordTextInput(),
-        const SizedBox(height: 24),
-        _SignInButton(),
-        const SizedBox(height: 24),
-        _NavigateToSignUpButton(),
-        const SizedBox(height: 24),
-      ],
+    return BlocListener<SignInCubit, SignInState>(
+      listener: (context, state) {
+        if (state.status.isFailure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage ?? 'Authentication Failure'),
+              ),
+            );
+        }
+      },
+      child: Column(
+        children: [
+          const AuthenticationHeader(title: 'Sign In'),
+          const Spacer(),
+          _EmailTextInput(),
+          const SizedBox(height: 24),
+          _PasswordTextInput(),
+          const SizedBox(height: 24),
+          _SignInButton(),
+          const SizedBox(height: 24),
+          _NavigateToSignUpButton(),
+          const SizedBox(height: 24),
+        ],
+      ),
     );
   }
 }
@@ -28,10 +44,14 @@ class SignInForm extends StatelessWidget {
 class _EmailTextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const TextField(
+    final displayError = context.select((SignInCubit cubit) => cubit.state.email.displayError);
+
+    return TextField(
+      onChanged: (email) => context.read<SignInCubit>().emailChanged(email),
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.email_outlined),
+        prefixIcon: const Icon(Icons.email_outlined),
         labelText: 'E-mail',
+        errorText: displayError != null ? 'Invalid email' : null,
       ),
       keyboardType: TextInputType.emailAddress,
     );
@@ -41,10 +61,13 @@ class _EmailTextInput extends StatelessWidget {
 class _PasswordTextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const TextField(
+    final displayError = context.select((SignInCubit cubit) => cubit.state.password.displayError);
+    return TextField(
+      onChanged: (password) => context.read<SignInCubit>().passwordChanged(password),
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.lock_open_rounded),
+        prefixIcon: const Icon(Icons.lock_open_rounded),
         labelText: 'Password',
+        errorText: displayError != null ? 'Invalid password' : null,
       ),
       obscureText: true,
     );
@@ -54,8 +77,14 @@ class _PasswordTextInput extends StatelessWidget {
 class _SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isInProgress = context.select((SignInCubit cubit) => cubit.state.status.isInProgress);
+
+    if (isInProgress) return const CircularProgressIndicator();
+
+    final isValid = context.select((SignInCubit cubit) => cubit.state.isValid);
+
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: isValid ? () => context.read<SignInCubit>().signInWithCredentials() : null,
       child: const Text('Sign In'),
     );
   }

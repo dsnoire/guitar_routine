@@ -1,5 +1,8 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubit/sign_in_cubit.dart';
 import 'sign_in_form.dart';
 
 class SignInPage extends StatelessWidget {
@@ -7,10 +10,13 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(16),
-        child: SignInForm(),
+        padding: const EdgeInsets.all(16),
+        child: BlocProvider(
+          create: (context) => SignInCubit(context.read<AuthenticationRepository>()),
+          child: const SignInForm(),
+        ),
       ),
     );
   }

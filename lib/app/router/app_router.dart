@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../bloc/app_bloc.dart';
@@ -11,14 +12,15 @@ class AppRouter {
   final AppBloc appBloc;
 
   GoRouter get router => GoRouter(
+        initialLocation: '/sign-in',
         refreshListenable: GoRouterAppBlocRefreshStream(appBloc.stream),
         redirect: (context, state) {
           final isAuthenticated = appBloc.state.status == AppStatus.authenticated;
 
-          if (isAuthenticated && state.path == '/sign-in') {
+          if (isAuthenticated && state.uri.path == '/sign-in') {
             return '/home';
           }
-          if (!isAuthenticated && state.path == '/home') {
+          if (!isAuthenticated && state.uri.path == '/home') {
             return '/sign-in';
           }
 
@@ -33,6 +35,14 @@ class AppRouter {
             path: '/sign-up',
             builder: (BuildContext context, GoRouterState state) => const SignUpPage(),
           ),
+          GoRoute(
+            path: '/home',
+            builder: (BuildContext context, GoRouterState state) => Scaffold(
+              appBar: AppBar(
+                title: const Text('Home'),
+              ),
+            ),
+          )
         ],
       );
 }
