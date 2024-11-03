@@ -1,4 +1,7 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:guitar_routine/sign_up/cubit/sign_up_cubit.dart';
 
 import 'sign_up_form.dart';
 
@@ -7,11 +10,14 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16),
-          child: SignUpForm(),
+          padding: const EdgeInsets.all(16),
+          child: BlocProvider(
+            create: (_) => SignUpCubit(context.read<AuthenticationRepository>()),
+            child: const SignUpForm(),
+          ),
         ),
       ),
     );

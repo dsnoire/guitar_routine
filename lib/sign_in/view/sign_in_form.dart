@@ -25,9 +25,7 @@ class SignInForm extends StatelessWidget {
       },
       child: SingleChildScrollView(
         child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height - 70,
-          ),
+          constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height - 70),
           child: IntrinsicHeight(
             child: Column(
               mainAxisSize: MainAxisSize.min,
