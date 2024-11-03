@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../bloc/app_bloc.dart';
@@ -19,6 +20,11 @@ class AppRouter {
           if (isAuthenticated && state.uri.path == '/sign-in') {
             return '/home';
           }
+
+          if (isAuthenticated && state.uri.path == '/sign-up') {
+            return '/home';
+          }
+
           if (!isAuthenticated && state.uri.path == '/home') {
             return '/sign-in';
           }
@@ -39,6 +45,12 @@ class AppRouter {
             builder: (BuildContext context, GoRouterState state) => Scaffold(
               appBar: AppBar(
                 title: const Text('Home'),
+                actions: [
+                  IconButton(
+                    onPressed: () => context.read<AppBloc>().add(AppSignOutPressed()),
+                    icon: const Icon(Icons.abc),
+                  )
+                ],
               ),
             ),
           )
